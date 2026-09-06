@@ -410,7 +410,7 @@ const AdminDashboard = () => {
           <div>
             <div className="d-flex align-items-center gap-2 mb-2">
               <span className="badge badge-glow-gold px-3 py-1 rounded-pill text-uppercase fw-bold">Admin Portal</span>
-              <span className="badge bg-success bg-opacity-20 text-success border border-success border-opacity-30 rounded-pill px-2 py-1 small">
+              <span className="badge bg-success bg-opacity-20 text-dark border border-success border-opacity-30 rounded-pill px-2 py-1 small">
                 <i className="bi bi-circle-fill me-1 small"></i> System Active
               </span>
             </div>
@@ -757,7 +757,7 @@ const AdminDashboard = () => {
                         </td>
                         <td><small className="text-slate-light">{p.contactInfo}</small></td>
                         <td>
-                          <span className={`badge ${p.isApproved ? 'bg-success bg-opacity-20 text-success border border-success' : 'bg-warning bg-opacity-20 text-warning border border-warning'} px-3 py-1 rounded-pill`}>
+                          <span className={`badge ${p.isApproved ? 'bg-success bg-opacity-20 text-dark border border-success' : 'bg-warning bg-opacity-20 text-warning border border-warning'} px-3 py-1 rounded-pill`}>
                             {p.isApproved ? '✓ Approved' : '⚠ Pending'}
                           </span>
                         </td>
@@ -835,7 +835,7 @@ const AdminDashboard = () => {
                         </td>
                         <td>
                           {u.role === 'Seller' ? (
-                            <span className={`badge ${u.isVerified ? 'bg-success bg-opacity-20 text-success border border-success' : 'bg-warning bg-opacity-20 text-warning border border-warning'} px-3 py-1 rounded-pill`}>
+                            <span className={`badge ${u.isVerified ? 'bg-success bg-opacity-20 text-dark border border-success' : 'bg-warning bg-opacity-20 text-warning border border-warning'} px-3 py-1 rounded-pill`}>
                               {u.isVerified ? '✓ Verified Seller' : '⚠ Pending Verification'}
                             </span>
                           ) : (
@@ -1029,7 +1029,7 @@ const AdminDashboard = () => {
                         <td className="text-light">{t.property_id?.title || 'N/A'}</td>
                          <td className="fw-bold" style={{ color: '#34D399' }}>₹{t.amount?.toLocaleString()}</td>
                         <td>
-                          <span className={`badge ${t.status === 'Success' ? 'bg-success bg-opacity-20 text-success border border-success' : t.status === 'Pending' ? 'bg-warning bg-opacity-20 text-warning border border-warning' : 'bg-danger bg-opacity-20 text-danger border border-danger'} px-3 py-1 rounded-pill`}>
+                          <span className={`badge ${t.status === 'Success' ? 'bg-success bg-opacity-20 text-dark border border-success' : t.status === 'Pending' ? 'bg-warning bg-opacity-20 text-warning border border-warning' : 'bg-danger bg-opacity-20 text-danger border border-danger'} px-3 py-1 rounded-pill`}>
                             {t.status}
                           </span>
                         </td>
