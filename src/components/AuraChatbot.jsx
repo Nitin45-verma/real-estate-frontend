@@ -103,6 +103,7 @@ const AuraChatbot = () => {
             try {
               const parsed = JSON.parse(dataContent);
               if (parsed.text) {
+                console.log("Chat Response Received:", parsed.text);
                 accumulatedText += parsed.text;
                 if (!hasCreatedMsg) {
                   hasCreatedMsg = true;
@@ -143,7 +144,7 @@ const AuraChatbot = () => {
         const fallbackMsg = {
           id: Date.now() + 1,
           sender: 'aura',
-          text: "Main aapki details note kar raha hu. Konsa area aur budget prefer karenge?",
+          text: "Aura is currently connecting, please retry in a moment.",
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
         setMessages(prev => [...prev, fallbackMsg]);
