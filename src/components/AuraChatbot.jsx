@@ -45,8 +45,8 @@ const AuraChatbot = () => {
     if (!textToSend) setInputValue('');
     setIsTyping(true);
 
-    // Prepare optimized context window (last 6 messages max for ultra-fast payload)
-    const historyPayload = updatedMessages.slice(-6).map(m => ({
+    // Prepare optimized context window (exclude current message to prevent duplication)
+    const historyPayload = messages.slice(-5).map(m => ({
       role: m.sender === 'user' ? 'user' : 'model',
       sender: m.sender,
       text: m.text,
@@ -79,18 +79,25 @@ const AuraChatbot = () => {
 
       while (true) {
         const { done, value } = await reader.read();
-        if (done) break;
+        
+        if (value) {
+          buffer += decoder.decode(value, { stream: true });
+        }
+        if (done) {
+          buffer += decoder.decode();
+        }
 
-        buffer += decoder.decode(value, { stream: true });
         const lines = buffer.split('\n');
         buffer = lines.pop() || ''; // Keep incomplete line chunk in buffer
 
+        let isDone = false;
         for (const line of lines) {
           const trimmed = line.trim();
           if (trimmed.startsWith('data: ')) {
             const dataContent = trimmed.replace('data: ', '').trim();
             if (dataContent === '[DONE]') {
               setIsTyping(false);
+              isDone = true;
               break;
             }
             try {
@@ -99,7 +106,6 @@ const AuraChatbot = () => {
                 accumulatedText += parsed.text;
                 if (!hasCreatedMsg) {
                   hasCreatedMsg = true;
-                  setIsTyping(false);
                   setMessages(prev => [
                     ...prev,
                     {
@@ -119,6 +125,10 @@ const AuraChatbot = () => {
               // Ignore non-JSON SSE lines
             }
           }
+        }
+        
+        if (isDone || done) {
+          break;
         }
       }
 
